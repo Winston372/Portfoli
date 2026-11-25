@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f8f9fc">
+  <title>個人網站 V12</title>
+  <link rel="stylesheet" href="style.css?v=12">
+  <script src="model.js?v=12" defer></script>
+  <script src="cloud-config.js?v=12" defer></script>
+  <script src="cloud.js?v=12" defer></script>
+  <script src="sync.js?v=12" defer></script>
+  <script src="studio.js?v=12" defer></script>
+</head>
+<body>
+  <header class="toolbar">
+    <a class="wordmark" href="#studio"><span class="mark" aria-hidden="true">P</span>個人網站 <small class="studio-version">V12</small></a>
+    <span class="save-state" id="save-state" role="status">正在載入草稿</span>
+    <div class="tools" id="editor-tools" hidden>
+      <button type="button" class="quiet" id="quick-draw">畫插圖</button>
+      <button type="button" class="quiet" id="sync-now" hidden>同步</button>
+      <button type="button" class="quiet" id="account" hidden>帳戶與發佈</button>
+      <button type="button" class="quiet" id="import">匯入草稿</button>
+      <button type="button" class="primary" id="export">匯出草稿</button>
+      <input type="file" id="import-file" accept=".json,application/json" hidden>
+    </div>
+  </header>
+  <main class="access-panel" id="access-panel" aria-labelledby="access-title">
+    <h1 id="access-title">個人網站</h1>
+    <p id="access-note" role="status">正在載入…</p>
+    <button type="button" id="sign-in" class="primary" hidden>用 GitHub 登入</button>
+  </main>
+  <dialog class="delete-dialog account-dialog" id="account-dialog" aria-label="帳戶與發佈">
+    <h2>帳戶與發佈</h2>
+    <p id="account-name"></p>
+    <div class="account-publication">
+      <h3>公開作品集</h3>
+      <p class="muted">編輯會自動儲存到私人草稿。按「發佈目前草稿」才會更新訪客看到的版本。</p>
+      <p id="publication-status" role="status">正在讀取發佈狀態…</p>
+      <div class="row publication-link" id="publication-actions" hidden>
+        <a id="publication-url" target="_blank" rel="noopener">開啟公開頁</a>
+        <button class="quiet" type="button" id="copy-publication">複製網址</button>
+      </div>
+      <div class="row">
+        <button type="button" class="primary" id="publish" disabled>發佈目前草稿</button>
+        <button type="button" class="danger" id="unpublish" hidden>取消公開</button>
+      </div>
+    </div>
+    <div class="row"><button type="button" class="quiet" id="sign-out">登出</button>
+      <button type="button" class="quiet" id="close-account">關閉</button></div>
+  </dialog>
+  <dialog class="delete-dialog" id="conflict-dialog" aria-label="同步衝突">
+    <h2>兩台裝置都有修改</h2>
+    <p>你可以下載本機備份，再選擇要保留這台裝置或雲端的版本。</p>
+    <div class="row">
+      <button type="button" class="quiet" id="backup-conflict">下載這份草稿</button>
+      <button type="button" class="quiet" id="defer-conflict">稍後決定</button>
+      <button type="button" class="quiet" id="keep-cloud">載入雲端版本</button>
+      <button type="button" class="danger" id="keep-local">以這台的版本更新雲端</button>
+    </div>
+  </dialog>
+  <div id="studio" class="studio" data-view="edit" hidden>
+    <aside class="sidebar" aria-label="作品集章節">
+      <div class="sidebar-head"><h2>網站章節</h2></div>
+      <nav id="sections" aria-label="選擇要編輯的章節"></nav>
+      <button type="button" class="add-item section-add" id="new-section">＋ 新增章節</button>
+      <div class="sidebar-footer"><button type="button" id="design" class="quiet">版面與配色</button></div>
+    </aside>
+    <div class="mobile-switch" role="group" aria-label="工作模式">
+      <button type="button" id="mode-edit" aria-pressed="true">編輯內容</button>
+      <button type="button" id="mode-preview" aria-pressed="false">看網站預覽</button>
+    </div>
+    <section class="editor" id="editor" aria-label="內容編輯區"></section>
+    <div id="editor-divider" class="editor-divider" role="separator" tabindex="0" aria-label="調整編輯欄寬度" aria-orientation="vertical" aria-controls="editor" aria-valuemin="32" aria-valuemax="68" aria-valuenow="42" title="拖曳調整編輯欄，雙擊重設"></div>
+    <section class="preview-area" aria-label="網站即時預覽">
+      <div class="preview-toolbar">
+        <h2>網站預覽</h2>
+        <div class="segmented" role="group" aria-label="預覽尺寸">
+          <button type="button" id="desktop" aria-pressed="true">寬版</button>
+          <button type="button" id="arrange" aria-pressed="false">拖曳排版</button>
+          <button type="button" id="phone" aria-pressed="false">手機</button>
+        </div>
+      </div>
+      <div class="preview-scroll" id="preview-scroll">
+        <div class="preview-frame" id="preview-frame">
+          <div id="preview" class="portfolio"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p id="message" class="message" aria-live="polite" hidden></p>
+  <noscript>請啟用 JavaScript 以使用作品集編輯器。</noscript>
+</body>
+</html>
